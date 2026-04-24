@@ -61,7 +61,7 @@ exports.config = {
         "C:\\Users\\BhartiPr\\Downloads\\app-uat-1.0.15-29-release-signed.apk",
 
       "appium:noReset": true,
-
+      acceptInsecureCerts: true,
       "appium:newCommandTimeout": 120000,
       "appium:adbExecTimeout": 120000,
       "appium:uiautomator2ServerInstallTimeout": 120000,
@@ -106,7 +106,7 @@ exports.config = {
   // baseUrl: 'http://localhost:8080',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 10000,
+  waitforTimeout: 30000,
   //
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response

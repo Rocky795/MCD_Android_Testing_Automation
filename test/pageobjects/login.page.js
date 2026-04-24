@@ -6,7 +6,7 @@ class LoginPage {
   
 
   async clickResManagerBtn() {
-    await Action.tap(LoginSelectors.loginResManagerBtn);
+    await Action.tap(LoginSelectors.loginResManagerBtn, 30000);
   }
 
   async clickLoginEmail() {

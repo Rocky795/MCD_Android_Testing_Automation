@@ -1,6 +1,6 @@
 class Actions {
-  async tap(el) {
-    await el.waitForDisplayed();
+  async tap(el, customTimeout = 10000) {
+    await el.waitForDisplayed({ timeout: customTimeout });
     await el.click();
   }
 
@@ -28,4 +28,4 @@ class Actions {
   }
 }
 
-export default new Actions();
+module.exports = new Actions();
