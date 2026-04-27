@@ -55,10 +55,10 @@ exports.config = {
       // capabilities for local Appium web tests on an Android Emulator
       platformName: "Android",
       "appium:automationName": "UiAutomator2",
-      "appium:deviceName": "adb-RZCW92NN80Y-Ko5AXb._adb-tls-connect._tcp",
+      "appium:deviceName": "emulator-5554",
 
       "appium:app":
-        "C:\\Users\\BhartiPr\\Downloads\\app-uat-1.0.15-29-release-signed.apk",
+        "C:\\Users\\BhartiPr\\Downloads\\app-uat-1.0.14-27-release-signed.apk",
 
       "appium:noReset": true,
       acceptInsecureCerts: true,

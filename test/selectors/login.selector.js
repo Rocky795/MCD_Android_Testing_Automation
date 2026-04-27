@@ -8,6 +8,12 @@ class LoginSelectors {
       : $(iosPaths.login_email);
   }
 
+  get login2Email() {
+    return driver.isAndroid
+      ? $(androidPaths.login2_email)
+      : $(iosPaths.login2_email);
+  }
+
   get loginSignInBtn() {
     return driver.isAndroid
       ? $(androidPaths.login_email_btn)

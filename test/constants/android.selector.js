@@ -1,6 +1,7 @@
 export const androidPaths = {
   backpackItem: 'android=new UiSelector().text("Sauce Labs Backpack")',
   login_email: 'android=new UiSelector().text("McDonald\'s Email Address")',
+  login2_email: 'android=new UiSelector().resourceId("idSIButton9")',
   login_email_btn: 'android=new UiSelector().description("Sign In")',
   login_res_manager_btn:
     'android=new UiSelector().text("Restaurant Managers & Franchisees")',
