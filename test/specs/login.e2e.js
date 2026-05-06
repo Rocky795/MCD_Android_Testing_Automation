@@ -19,10 +19,11 @@ describe("My Login application", () => {
     if(await LoginPage.isLogin2EmailVisible()) {
       await LoginPage.clickLogin2Email();
     }
-    // await LoginPage.clickResManagerBtn();
+    await LoginPage.clickResManagerBtn();
     await LoginPage.fillResManagerUsername();
     await LoginPage.fillResManagerPassword();
     await LoginPage.clickResManagerSignInBtn();
+    await Actions.wait(8000);
     await Actions.handleIntermediatePage();
     
     if(await LoginPage.isLogin2EmailVisible()) {

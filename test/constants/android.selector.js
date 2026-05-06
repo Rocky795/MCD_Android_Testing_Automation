@@ -11,4 +11,7 @@ export const androidPaths = {
     'android=new UiSelector().resourceId("PasswordInputManagers")',
   login_res_manager_sign_in_btn:
     'android=new UiSelector().resourceId("btnLoginManagers")',
+  home_user_profile_btn: 'android=new UiSelector().className("android.widget.ImageView").instance(0)',
+  home_user_profil_name: `android=new UiSelector().text("${process.env.PROFILE_NAME}")`,
+
 };
