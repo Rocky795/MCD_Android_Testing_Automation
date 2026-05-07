@@ -12,5 +12,7 @@ class ProfileSelectors {
       ? $(androidPaths.home_user_profil_name)
       : $(iosPaths.home_user_profil_name);
   }
+
+  
 } 
 module.exports = new ProfileSelectors();

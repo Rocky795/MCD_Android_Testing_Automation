@@ -15,6 +15,8 @@ class ProfilePage {
         return profileName;
     }
 
+    
+
 }
 
 module.exports = new ProfilePage();

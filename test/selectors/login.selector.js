@@ -43,5 +43,15 @@ class LoginSelectors {
       ? $(androidPaths.login_res_manager_sign_in_btn)
       : $(iosPaths.login_res_manager_sign_in_btn);
   }
+  get homeCasesText() {
+    return driver.isAndroid
+      ? $(androidPaths.home_cases_text)
+      : $(iosPaths.home_cases_text);
+  }
+  get homeNewCaseDropdown() {
+    return driver.isAndroid
+      ? $(androidPaths.home_newcase_dropdown)
+      : $(iosPaths.home_newcase_dropdown);
+  }
 }
 module.exports = new LoginSelectors();

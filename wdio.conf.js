@@ -26,7 +26,8 @@ exports.config = {
   specs: ["./test/specs/**/*.js"],
   // Patterns to exclude.
   exclude: [
-    // 'path/to/excluded/files'
+    './test/specs/runner.e2e.js',
+    './test/specs/test.e2e.js',
   ],
   //
   // ============
@@ -79,7 +80,7 @@ exports.config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "info",
+  logLevel: "warn",
   //
   // Set specific log levels per logger
   // loggers:
