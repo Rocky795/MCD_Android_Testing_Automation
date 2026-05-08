@@ -15,16 +15,22 @@ describe("My Login application", () => {
     await LoginPage.fillResManagerUsername();
     await LoginPage.fillResManagerPassword();
     await LoginPage.clickResManagerSignInBtn();
+    if (await LoginPage.isResManagerUsernameVisible()) {
+      console.log("Res Manager Username is visible again then login again");
+      await LoginPage.fillResManagerUsername();
+      await LoginPage.fillResManagerPassword();
+      await LoginPage.clickResManagerSignInBtn();
+    }
     await Actions.wait(8000);
     await Actions.handleIntermediatePage();
 
     if (await LoginPage.isLogin2EmailVisible()) {
       await LoginPage.clickLogin2Email();
     }
-    
+
     const el = await LoginPage.getCasesText();
     Actions.wait(50000);
-    
+
     expect(el).toBe("Cases");
   });
 });

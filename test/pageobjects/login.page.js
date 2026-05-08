@@ -27,6 +27,14 @@ class LoginPage {
     await LoginSelectors.loginResManagerBtn.click();
   }
 
+  async isResManagerUsernameVisible() {
+    try {
+      return await LoginSelectors.loginResManagerUsername.isDisplayed();
+    } catch (error) {
+      return false;
+    }
+  }
+
   async fillResManagerUsername() {
     await LoginSelectors.loginResManagerUsername.setValue(
       process.env.RM_USERNAME,

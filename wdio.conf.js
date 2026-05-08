@@ -1,5 +1,16 @@
 require("dotenv").config();
 const allure = require("@wdio/allure-reporter").default;
+const path = require("path");
+
+const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+const baseResultsDir = "allure-results";
+const currentResultsDir = `allure-results/run-${timestamp}`;
+const currentReportDir = `allure-report/run-${timestamp}`;
+
+const fs = require("fs");
+// Create root results and report directories (allure writes to root by default)
+fs.mkdirSync(baseResultsDir, { recursive: true });
+fs.mkdirSync("allure-report", { recursive: true });
 
 exports.config = {
   //
@@ -26,7 +37,7 @@ exports.config = {
   //
   specs: ["./test/specs/**/*.js"],
   // Patterns to exclude.
-  exclude: ["./test/specs/runner.e2e.js", "./test/specs/test.e2e.js"],
+  exclude: ["./test/specs/runner.e2e.js"],
   //
   // ============
   // Capabilities
@@ -147,7 +158,7 @@ exports.config = {
     [
       "allure",
       {
-        outputDir: "allure-results",
+        outputDir: baseResultsDir, // Write to root directory (will be copied to timestamped folder on completion)
         disableWebdriverStepsReporting: false,
         disableWebdriverScreenshotsReporting: false,
       },
@@ -214,9 +225,9 @@ exports.config = {
    * @param {object}         browser      instance of created browser/device session
    */
   before: function (capabilities, specs) {
-    allure.addEnvironment("Platform", "Android");
-    allure.addEnvironment("Device", "Samsung SM-X115");
-    allure.addEnvironment("Environment", "UAT");
+    allure.reportedEnvironmentVars("Platform", "Android");
+    allure.reportedEnvironmentVars("Device", "Samsung SM-X115");
+    allure.reportedEnvironmentVars("Environment", "UAT");
   },
   /**
    * Runs before a WebdriverIO command gets executed.
@@ -265,6 +276,8 @@ exports.config = {
   ) {
     if (error) {
       browser.takeScreenshot();
+    } else {
+      browser.takeScreenshot();
     }
   },
 
@@ -309,12 +322,76 @@ exports.config = {
    * @param {<Object>} results object containing test results
    */
   onComplete: function () {
-    require("child_process").execSync(
-      "allure generate allure-results --clean",
-      { stdio: "inherit" },
-    );
+    try {
+      // Create timestamped results directory
+      fs.mkdirSync(currentResultsDir, { recursive: true });
 
-    console.log("Allure report generated");
+      // Copy all result files from root allure-results to timestamped folder
+      const allResultFiles = fs.readdirSync(baseResultsDir).filter((f) => {
+        const fullPath = path.join(baseResultsDir, f);
+        return (
+          fs.statSync(fullPath).isFile() &&
+          (f.endsWith("-result.json") ||
+            f.endsWith("-attachment.json") ||
+            f.endsWith("-container.json"))
+        );
+      });
+
+      if (allResultFiles.length === 0) {
+        console.warn(
+          `\nWarning: No result files found in ${baseResultsDir}. Tests may have failed to execute.`,
+        );
+      } else {
+        allResultFiles.forEach((file) => {
+          const source = path.join(baseResultsDir, file);
+          const dest = path.join(currentResultsDir, file);
+          fs.copyFileSync(source, dest);
+        });
+        console.log(
+          `\nCopied ${allResultFiles.length} result files to ${currentResultsDir}`,
+        );
+      }
+
+      // Generate the report using the timestamped results
+      console.log(`\n${"=".repeat(60)}`);
+      console.log(`Generating Allure report for run: ${timestamp}`);
+      console.log(`Reading results from: ${currentResultsDir}`);
+      console.log(`Writing report to: ${currentReportDir}`);
+      console.log(`${"=".repeat(60)}\n`);
+
+      require("child_process").execSync(
+        `npx allure generate "${currentResultsDir}" -o "${currentReportDir}" --clean`,
+        { stdio: "inherit" },
+      );
+
+      console.log(`\n${"=".repeat(60)}`);
+      console.log(`✓ Allure report successfully generated!`);
+      console.log(`\nReport Location: ${currentReportDir}`);
+      console.log(`\nTo view the report, run:`);
+      console.log(`  npm run report:open`);
+      console.log(`\nOr manually open:`);
+      console.log(`  npx allure open ${currentReportDir}`);
+      console.log(`\nOr open in browser:`);
+      console.log(`  file:///${path.resolve(currentReportDir)}/index.html`);
+      console.log(`${"=".repeat(60)}\n`);
+
+      // Optional: Clean up root allure-results folder for next run
+      // Uncomment the following lines if you want to auto-clean between runs:
+      // allResultFiles.forEach(file => {
+      //   fs.unlinkSync(path.join(baseResultsDir, file));
+      // });
+      // console.log(`Cleaned root ${baseResultsDir} folder for next run`);
+    } catch (error) {
+      console.error(`\n${"=".repeat(60)}`);
+      console.error(`✗ Failed to generate Allure report!`);
+      console.error(`Error: ${error.message}`);
+      console.error(`Results directory: ${currentResultsDir}`);
+      console.error(`Report directory: ${currentReportDir}`);
+      console.error(`\nMake sure @wdio/allure-reporter is installed:`);
+      console.error(`  npm install --save-dev @wdio/allure-reporter`);
+      console.error(`${"=".repeat(60)}\n`);
+      throw error;
+    }
   },
   /**
    * Gets executed when a refresh happens.
