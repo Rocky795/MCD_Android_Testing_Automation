@@ -1,0 +1,40 @@
+const Actions = require("../utils/actions");
+const { expect } = require("@wdio/globals");
+const ChatPage = require("../pageobjects/chat.page");
+const ChatData = require("../data/chat.data");
+const chatPage = require("../pageobjects/chat.page");
+
+describe("Chat Support Automation", () => {
+  it("Open New Case Chat", async () => {
+    
+   
+    
+
+    await chatPage.clickNewCaseChatButton();
+    await Actions.wait(2000); 
+    await chatPage.clickChatSupportClearChatButton();
+    await Actions.wait(2000); 
+    await chatPage.clickChatSupportClearChatButton();
+    await Actions.wait(2000); 
+    await chatPage.clickStartNewChatButton();
+    await chatPage.enterChatSupportMessage("This is a test message.");
+    await chatPage.clickChatSupportSendButton();
+    await Actions.wait(2000); 
+
+    
+  });
+
+  it("Validate Chat Support Messages", async () => {
+    const greetingEl = await ChatPage.getChatMessage(ChatData.messages.greeting);
+    await greetingEl.waitForDisplayed({ timeout: 50000 });
+    await expect(greetingEl).toBeDisplayed();
+    const storeNumberIssueEl = await ChatPage.getChatMessage(ChatData.messages.storeNumberIssue);
+    await storeNumberIssueEl.waitForDisplayed({ timeout: 50000 });
+    await expect(storeNumberIssueEl).toBeDisplayed();
+    const storeConfirmationEl = await ChatPage.getChatMessage(ChatData.messages.storeConfirmation);
+    await storeConfirmationEl.waitForDisplayed({ timeout: 50000 });
+    await expect(storeConfirmationEl).toBeDisplayed();
+    
+
+  });
+});

@@ -34,12 +34,26 @@ export const androidPaths = {
     'android=new UiSelector().text("+1(508) 248-0663")',
   manual_submit_button: 'android=new UiSelector().description("Submit case")',
 
+  start_new_chat_button:
+    'android=new UiSelector().resourceId("com.mcd.gsd.archassist:id/startNewButton")',
+  new_case_chat_button: 'android=new UiSelector().description(" New Case")',
+  chat_support_clear_chat_button:
+    'android=new UiSelector().resourceId("com.mcd.gsd.archassist:id/action_clear_conversation")',
+  chat_support_send_button:
+    'android=new UiSelector().resourceId("com.mcd.gsd.archassist:id/send_button")',
+  chat_support_input_field:
+    'android=new UiSelector().resourceId("com.mcd.gsd.archassist:id/input_view")',
+  chat_support_greeting_message:
+    'android=new UiSelector().textContains("Hello Pratham. Thank you for contacting the McDonald")',
+  chat_support_store_number_message:
+    'android=new UiSelector().text("It looks like you are contacting us for an issue with Store number…28493")',
+  chat_support_store_number_confirmation_message:
+    'android=new UiSelector().text("If this is the correct store, please select Store Number. If you are calling for a different store, please select Different Store Number")',
+  chat_support_redirected_Live_support_message:
+    'android=new UiSelector().text("Hello Pratham (Contractor). You have been redirected to the McDonald’s Restaurant Technology Live Support.")',
 
-  chat_support_send_button: 'android=new UiSelector().resourceId("com.mcd.gsd.archassist:id/send_button")',
-  chat_support_input_field: 'android=new UiSelector().resourceId("com.mcd.gsd.archassist:id/input_view")',
-  chat_support_greeting_message: 'android=new UiSelector().textContains("Hello Pratham. Thank you for contacting the McDonald")',
-  chat_support_store_number_message: 'android=new UiSelector().text("It looks like you are contacting us for an issue with Store number…28493")',
-  chat_support_store_number_confirmation_message: 'android=new UiSelector().text("If this is the correct store, please select Store Number. If you are calling for a different store, please select Different Store Number")',
-  chat_support_redirected_Live_support_message: 'android=new UiSelector().text("Hello Pratham (Contractor). You have been redirected to the McDonald’s Restaurant Technology Live Support.")',
-
+  chatMessageDynamicSelector: (messageText) => {
+    return `android=new UiSelector().textContains("${messageText}")`;
+  },
+  chat_dynamic_message: 'android=new UiSelector().textContains("{MSG_TEXT}")'
 };
