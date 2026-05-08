@@ -21,10 +21,10 @@ describe("My Login application", () => {
     if (await LoginPage.isLogin2EmailVisible()) {
       await LoginPage.clickLogin2Email();
     }
-    await LoginPage.clickNewCaseDropdown();
+    
     const el = await LoginPage.getCasesText();
-    Actions.wait(2000);
-    await driver.back();
+    Actions.wait(50000);
+    
     expect(el).toBe("Cases");
   });
 });

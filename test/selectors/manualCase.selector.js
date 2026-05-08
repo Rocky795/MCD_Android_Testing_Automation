@@ -37,6 +37,12 @@ class ManualCaseSelectors {
       ? $(androidPaths.manual_submit_button)
       : $(iosPaths.manual_submit_button);
   }
+
+  get unexpectedErrorButton() {
+    return driver.isAndroid
+      ? $(androidPaths.unexpected_error_button)
+      : $(iosPaths.unexpected_error_button);
+  }
   
 }
 module.exports = new ManualCaseSelectors();

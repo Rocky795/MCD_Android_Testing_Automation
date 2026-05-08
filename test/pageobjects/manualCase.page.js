@@ -64,6 +64,21 @@ class manualCasePage {
     });
     await btn.click();
   }
+
+  async clickUnexpectedErrorButton() {
+    const btn = ManualCaseSelectors.unexpectedErrorButton;
+    await btn.waitForDisplayed({
+      timeout: 10000,
+      timeoutMsg: "Unexpected error button not displayed",
+    });
+    await btn.click();
+  }
+
+  async isUnexpectedErrorButtonDisplayed() {
+    const btn = ManualCaseSelectors.unexpectedErrorButton;
+    return await btn.isDisplayed();
+  }
+
 }
 
 module.exports = new manualCasePage();

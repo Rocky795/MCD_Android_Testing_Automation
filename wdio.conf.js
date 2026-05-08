@@ -25,10 +25,7 @@ exports.config = {
   //
   specs: ["./test/specs/**/*.js"],
   // Patterns to exclude.
-  exclude: [
-    './test/specs/runner.e2e.js',
-    './test/specs/test.e2e.js',
-  ],
+  exclude: ["./test/specs/runner.e2e.js", "./test/specs/test.e2e.js"],
   //
   // ============
   // Capabilities
@@ -70,6 +67,7 @@ exports.config = {
       "appium:appWaitActivity": "*",
       "appium:appWaitDuration": 60000,
       "appium:autoGrantPermissions": true,
+      maxInstances: 1,
     },
   ],
 

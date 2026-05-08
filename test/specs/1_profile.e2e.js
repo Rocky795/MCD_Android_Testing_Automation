@@ -9,5 +9,6 @@ describe("Check the User Profile", () => {
     const el = await profilePage.getUserProfileName();
     Actions.wait(2000);
     expect(el).toBe(process.env.PROFILE_NAME);
+    await driver.back();
   });
 });
