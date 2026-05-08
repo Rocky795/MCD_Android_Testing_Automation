@@ -1,4 +1,5 @@
 require("dotenv").config();
+const allure = require("@wdio/allure-reporter").default;
 
 exports.config = {
   //
@@ -212,8 +213,11 @@ exports.config = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {object}         browser      instance of created browser/device session
    */
-  // before: function (capabilities, specs) {
-  // },
+  before: function (capabilities, specs) {
+    allure.addEnvironment("Platform", "Android");
+    allure.addEnvironment("Device", "Samsung SM-X115");
+    allure.addEnvironment("Environment", "UAT");
+  },
   /**
    * Runs before a WebdriverIO command gets executed.
    * @param {string} commandName hook command name
@@ -304,8 +308,14 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {<Object>} results object containing test results
    */
-  // onComplete: function(exitCode, config, capabilities, results) {
-  // },
+  onComplete: function () {
+    require("child_process").execSync(
+      "allure generate allure-results --clean",
+      { stdio: "inherit" },
+    );
+
+    console.log("Allure report generated");
+  },
   /**
    * Gets executed when a refresh happens.
    * @param {string} oldSessionId session ID of the old session

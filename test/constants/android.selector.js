@@ -29,7 +29,7 @@ export const androidPaths = {
   create_case_manual_short_description_imput:
     'android=new UiSelector().text("Enter short description")',
   create_case_manual_description_input:
-    'android=new UiSelector().textContains("Please describe the issue")', // not full path use textContains
+    'android=new UiSelector().textContains("Please describe the issue")', 
   create_case_manual_phone_number:
     'android=new UiSelector().text("+1(508) 248-0663")',
   manual_submit_button: 'android=new UiSelector().description("Submit case")',
