@@ -12,6 +12,11 @@ const fs = require("fs");
 fs.mkdirSync(baseResultsDir, { recursive: true });
 fs.mkdirSync("allure-report", { recursive: true });
 
+// Report environment variables for Allure (replace deprecated addEnvironment usage)
+process.env.PLATFORM = process.env.PLATFORM || "Android";
+process.env.DEVICE = process.env.DEVICE || "Samsung SM-X115";
+process.env.ENVIRONMENT = process.env.ENVIRONMENT || "UAT";
+
 exports.config = {
   //
   // ====================
@@ -161,6 +166,8 @@ exports.config = {
         outputDir: baseResultsDir, // Write to root directory (will be copied to timestamped folder on completion)
         disableWebdriverStepsReporting: false,
         disableWebdriverScreenshotsReporting: false,
+        // Report these environment variables into Allure instead of using addEnvironment
+        reportedEnvironmentVars: ["PLATFORM", "DEVICE", "ENVIRONMENT"],
       },
     ],
   ],
@@ -225,9 +232,8 @@ exports.config = {
    * @param {object}         browser      instance of created browser/device session
    */
   before: function (capabilities, specs) {
-    allure.reportedEnvironmentVars("Platform", "Android");
-    allure.reportedEnvironmentVars("Device", "Samsung SM-X115");
-    allure.reportedEnvironmentVars("Environment", "UAT");
+    // Allure environment variables are provided via `reportedEnvironmentVars`
+    console.log(`Test environment: ${process.env.ENVIRONMENT} / ${process.env.PLATFORM} / ${process.env.DEVICE}`);
   },
   /**
    * Runs before a WebdriverIO command gets executed.
@@ -303,8 +309,18 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {Array.<String>} specs List of spec file paths that ran
    */
-  // after: function (result, capabilities, specs) {
-  // },
+  afterTest: function (
+    test,
+    context,
+    { error, result, duration, passed, retries },
+  ) {
+    if (error) {
+      browser.takeScreenshot();
+    } else {
+      browser.takeScreenshot();
+    }
+  },
+
   /**
    * Gets executed right after terminating the webdriver session.
    * @param {object} config wdio configuration object

@@ -26,17 +26,19 @@ export const androidPaths = {
     'android=new UiSelector().text("Select")',
   create_case_manual_issue_area_dropdown_front_counter:
     'android=new UiSelector().textContains("Front counter")',
+  create_case_manual_impact_dropdown:
+    'android=new UiSelector().description("4 - Minor / Localized, ›")',
   create_case_manual_short_description_imput:
     'android=new UiSelector().text("Enter short description")',
   create_case_manual_description_input:
-    'android=new UiSelector().textContains("Please describe the issue")', 
+    'android=new UiSelector().textContains("Please describe the issue")',
   create_case_manual_phone_number:
     'android=new UiSelector().text("+1(508) 248-0663")',
   manual_submit_button: 'android=new UiSelector().description("Submit case")',
-  unexpected_error_button: 'android=new UiSelector().resourceId("android:id/button1")',
-
-
-
+  unexpected_error_button:
+    'android=new UiSelector().resourceId("android:id/button1")',
+  dynacmic_description_selector:
+    'android=new UiSelector().textContains("{DESCRIPTION_TEXT}")',
 
   start_new_chat_button:
     'android=new UiSelector().resourceId("com.mcd.gsd.archassist:id/startNewButton")',
@@ -56,7 +58,8 @@ export const androidPaths = {
   // chat_support_redirected_Live_support_message:
   //   'android=new UiSelector().text("Hello Pratham (Contractor). You have been redirected to the McDonald’s Restaurant Technology Live Support.")',
 
-  chat_confirm_store_number_button: 'android=new UiSelector().text("Store 28493")',
+  chat_confirm_store_number_button:
+    'android=new UiSelector().text("Store 28493")',
   chat_dynamic_message: 'android=new UiSelector().textContains("{MSG_TEXT}")',
 
   chat_billing_issue_selector: 'android=new UiSelector().text("Billing")',

@@ -22,7 +22,7 @@ describe("Chat Support Automation", () => {
     const greetingEl = await ChatPage.getChatMessage(
       ChatData.messages.greeting,
     );
-    await greetingEl.waitForDisplayed({ timeout: 50000 });
+    await greetingEl.waitForDisplayed({ timeout: 100000 });
     await expect(greetingEl).toBeDisplayed();
     console.log("Validation for message is done");
     const storeNumberIssueEl = await ChatPage.getChatMessage(

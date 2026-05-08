@@ -12,6 +12,11 @@ class ManualCaseSelectors {
       ? $(androidPaths.create_case_manual_issue_area_dropdown)
       : $(iosPaths.create_case_manual_issue_area_dropdown);
   }
+  get createCaseManualImpactDropdown() {
+    return driver.isAndroid
+      ? $(androidPaths.create_case_manual_impact_dropdown)
+      : $(iosPaths.create_case_manual_impact_dropdown);
+  }
   get createCaseManualIssueAreaDropdownFrontCounter() {
     return driver.isAndroid
       ? $(androidPaths.create_case_manual_issue_area_dropdown_front_counter)

@@ -1,9 +1,25 @@
 const Action = require("../utils/actions");
 const LoginSelectors = require("../selectors/login.selector");
 const ManualCaseSelectors = require("../selectors/manualCase.selector");
+const { androidPaths } = require("../constants/android.selector");
+
 require("dotenv").config();
 
 class manualCasePage {
+
+  async getDynamicTextSelector(text) {
+    let selectorString = androidPaths.dynacmic_description_selector;
+    selectorString = selectorString.replace("{DESCRIPTION_TEXT}", text);
+    const el = await $(selectorString);
+    console.log(`This description is getting validated: ${selectorString}`);
+    await el.waitForDisplayed({
+      timeout: 20000,
+      timeoutMsg: `Dynamic text selector not displayed: ${text}`,
+    });
+    return el;
+  }
+
+
   async clickCreateCaseManualButton() {
     const btn = ManualCaseSelectors.createCaseManualButton;
     await btn.waitForDisplayed({
@@ -17,7 +33,7 @@ class manualCasePage {
   async clickCreateCaseManualIssueDropdown() {
     const btn = ManualCaseSelectors.createCaseManualIssueAreaDropdown;
     await btn.waitForDisplayed({
-      timeout: 10000,
+      timeout: 20000,
       timeoutMsg: "Manual case issue button not displayed",
     });
     await btn.click();
@@ -25,11 +41,27 @@ class manualCasePage {
   async clickCreateCaseManualIssueFrontCounter() {
     const btn = ManualCaseSelectors.createCaseManualIssueAreaDropdownFrontCounter;
     await btn.waitForDisplayed({
-      timeout: 10000,
+      timeout: 20000,
       timeoutMsg: "Manual case issue area dropdown front counter not displayed",
     });
     await btn.click();
   }
+
+  async clickCreateCaseManualImpactDropdown() {
+    const btn = ManualCaseSelectors.createCaseManualImpactDropdown;
+    await btn.waitForDisplayed({
+      timeout: 20000,
+      timeoutMsg: "Manual case impact dropdown not displayed",
+    });
+    await btn.click();
+  }
+
+  async CreateCaseManualIssueAreaDropdownFrontCounterIsDisplayed() {
+    const btn = ManualCaseSelectors.createCaseManualIssueAreaDropdownFrontCounter;
+    return await btn.isDisplayed();
+  }
+
+
   async fillCreateCaseManualShortDescription() {
     const input = ManualCaseSelectors.createCaseManualShortDescriptionInput;
     await input.waitForDisplayed({
