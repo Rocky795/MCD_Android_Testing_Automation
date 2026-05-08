@@ -6,35 +6,51 @@ const chatPage = require("../pageobjects/chat.page");
 
 describe("Chat Support Automation", () => {
   it("Open New Case Chat", async () => {
-    
-   
-    
-
     await chatPage.clickNewCaseChatButton();
-    await Actions.wait(2000); 
+    await Actions.wait(2000);
     await chatPage.clickChatSupportClearChatButton();
-    await Actions.wait(2000); 
+    await Actions.wait(2000);
     await chatPage.clickChatSupportClearChatButton();
-    await Actions.wait(2000); 
+    await Actions.wait(2000);
     await chatPage.clickStartNewChatButton();
     await chatPage.enterChatSupportMessage("This is a test message.");
     await chatPage.clickChatSupportSendButton();
-    await Actions.wait(2000); 
-
-    
+    await Actions.wait(2000);
   });
 
   it("Validate Chat Support Messages", async () => {
-    const greetingEl = await ChatPage.getChatMessage(ChatData.messages.greeting);
+    const greetingEl = await ChatPage.getChatMessage(
+      ChatData.messages.greeting,
+    );
     await greetingEl.waitForDisplayed({ timeout: 50000 });
     await expect(greetingEl).toBeDisplayed();
-    const storeNumberIssueEl = await ChatPage.getChatMessage(ChatData.messages.storeNumberIssue);
+    console.log("Validation for message is done");
+    const storeNumberIssueEl = await ChatPage.getChatMessage(
+      ChatData.messages.storeNumberIssue,
+    );
     await storeNumberIssueEl.waitForDisplayed({ timeout: 50000 });
     await expect(storeNumberIssueEl).toBeDisplayed();
-    const storeConfirmationEl = await ChatPage.getChatMessage(ChatData.messages.storeConfirmation);
+    console.log("Validation for message is done");
+
+    const storeConfirmationEl = await ChatPage.getChatMessage(
+      ChatData.messages.storeConfirmation,
+    );
     await storeConfirmationEl.waitForDisplayed({ timeout: 50000 });
     await expect(storeConfirmationEl).toBeDisplayed();
-    
+    console.log("Validation for message is done");
 
+    await Actions.wait(2000);
+    await chatPage.clickChatConfirmStoreNumber();
+    await Actions.wait(2000);
+    await chatPage.clickChatBillingIssue();
+    await Actions.wait(2000);
+    const supportDeskClosedEl = await ChatPage.getChatMessage(
+      ChatData.messages.supportDeskClosed,
+    );
+    if (await supportDeskClosedEl.isDisplayed()) {
+      console.log("The Chat support is closed");
+    } else {
+      console.log("Continue with Chat");
+    }
   });
 });

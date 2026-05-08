@@ -5,26 +5,21 @@ const chatSelector = require("../selectors/chat.selector");
 require("dotenv").config();
 
 class ChatPage {
-  /**
-   * Dynamically locates a chat bubble based on its exact or partial text.
-   * @param {string} messageText - The text of the chat message to find
-   */
-  // async getChatMessage(messageText) {
-  //   // Using textContains is usually safer for long strings,
-  //   // but you can change it to .text() if you need an exact match.
-  //   const selectorString = androidPaths.chatMessageDynamicSelector(messageText);
-  //   return await $(selectorString);
-  // }
+  
+ 
 
   async getChatMessage(text) {
-    // 1. Get the static string from your constants
+    
     let selectorString = androidPaths.chat_dynamic_message;
-    console.log(selectorString)
-    // 2. Replace the placeholder with the actual data text
     selectorString = selectorString.replace("{MSG_TEXT}", text);
-
-    // 3. Return the WebdriverIO element
+    console.log(`This message is getting validated: ${selectorString}`);
     return await $(selectorString);
+  }
+
+  async getChatMessageIsDisplayed(text) {
+    const messageEl = await this.getChatMessage(text);
+    await messageEl.waitForDisplayed({ timeout: 50000 });
+    return await messageEl.isDisplayed();
   }
 
   async clickNewCaseChatButton() {
@@ -79,6 +74,24 @@ class ChatPage {
       timeoutMsg: "Chat Support Input Field not displayed",
     });
     await input.clearValue();
+  }
+
+  async clickChatBillingIssue() {
+    const btn = ChatSelectors.chatBillingIssueSelector;
+    await btn.waitForDisplayed({
+      timeout: 10000,
+      timeoutMsg: "Chat Billing Issue selector not displayed",
+    });
+    await btn.click();
+  }
+
+  async clickChatConfirmStoreNumber() {
+    const btn = ChatSelectors.chatConfirmStoreNumberButton;
+    await btn.waitForDisplayed({
+      timeout: 10000,
+      timeoutMsg: "Chat Confirm Store Number button not displayed",
+    });
+    await btn.click();
   }
 }
 

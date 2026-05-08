@@ -46,5 +46,17 @@ class ChatSelectors {
       : $(iosPaths.chatMessageDynamicSelector);
   }
 
+  get chatBillingIssueSelector() {
+    return driver.isAndroid
+      ? $(androidPaths.chat_billing_issue_selector)
+      : $(iosPaths.chat_billing_issue_selector);
+  }
+
+  get chatConfirmStoreNumberButton() {
+    return driver.isAndroid
+      ? $(androidPaths.chat_confirm_store_number_button)
+      : $(iosPaths.chat_confirm_store_number_button);
+  }
+
 } 
 module.exports = new ChatSelectors(); 

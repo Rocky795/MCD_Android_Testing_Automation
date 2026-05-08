@@ -57,5 +57,7 @@ export const androidPaths = {
   //   'android=new UiSelector().text("Hello Pratham (Contractor). You have been redirected to the McDonald’s Restaurant Technology Live Support.")',
 
   chat_confirm_store_number_button: 'android=new UiSelector().text("Store 28493")',
-  chat_dynamic_message: 'android=new UiSelector().textContains("{MSG_TEXT}")'
+  chat_dynamic_message: 'android=new UiSelector().textContains("{MSG_TEXT}")',
+
+  chat_billing_issue_selector: 'android=new UiSelector().text("Billing")',
 };
