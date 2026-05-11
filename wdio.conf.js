@@ -233,7 +233,9 @@ exports.config = {
    */
   before: function (capabilities, specs) {
     // Allure environment variables are provided via `reportedEnvironmentVars`
-    console.log(`Test environment: ${process.env.ENVIRONMENT} / ${process.env.PLATFORM} / ${process.env.DEVICE}`);
+    console.log(
+      `Test environment: ${process.env.ENVIRONMENT} / ${process.env.PLATFORM} / ${process.env.DEVICE}`,
+    );
   },
   /**
    * Runs before a WebdriverIO command gets executed.
@@ -348,8 +350,12 @@ exports.config = {
         return (
           fs.statSync(fullPath).isFile() &&
           (f.endsWith("-result.json") ||
-            f.endsWith("-attachment.json") ||
-            f.endsWith("-container.json"))
+            f.endsWith(".png") || // screenshots
+            f.endsWith(".jpg") ||
+            f.endsWith("-container.json") ||
+            f.endsWith(".jpeg") ||
+            f.endsWith("-attachment.txt")
+        )
         );
       });
 

@@ -19,6 +19,7 @@ describe("My Login application", () => {
     await Actions.wait(2000);
     if (await LoginPage.isResManagerUsernameVisible()) {
       console.log("Res Manager Username is visible again then login again");
+      await Actions.wait(5000);
       await LoginPage.fillResManagerUsername();
       await LoginPage.fillResManagerPassword();
       await LoginPage.clickResManagerSignInBtn();
@@ -31,7 +32,7 @@ describe("My Login application", () => {
     }
 
     let el = await LoginPage.getCasesText();
-    Actions.wait(50000);
+    await Actions.wait(50000);
 
     expect(el).toBe("Cases");
     

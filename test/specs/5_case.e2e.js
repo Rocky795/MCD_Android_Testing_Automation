@@ -4,7 +4,7 @@ const profilePage = require("../pageobjects/profile.page");
 const signOutPage = require("../pageobjects/signout.page");
 const LoginPage = require("../pageobjects/login.page");
 
-describe("Logout", () => {
+describe("Open Cases and Verify", () => {
   it("Verify User can Logout from MCD APP", async () => {
    
 
