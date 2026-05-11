@@ -7,6 +7,14 @@ class LoginPage {
     await Action.tap(LoginSelectors.loginSignInBtn);
   }
 
+  async isLoginEmailDisplayed() {
+    try {
+      return await LoginSelectors.loginEmail.isDisplayed();
+    } catch (error) {
+      return false;
+    }
+  }
+
   async fillEmail() {
     await LoginSelectors.loginEmail.setValue(process.env.EMAIL);
   }
@@ -55,6 +63,13 @@ class LoginPage {
     const casesText = await LoginSelectors.homeCasesText.getText();
     console.log("Cases Text: ", casesText);
     return casesText;
+  }
+  async isCasesTextDisplayed() {
+    try {
+      return await LoginSelectors.homeCasesText.isDisplayed();
+    } catch (error) {
+      return false;
+    }
   }
   async clickNewCaseDropdown() {
     const dropdown = await LoginSelectors.homeNewCaseDropdown;

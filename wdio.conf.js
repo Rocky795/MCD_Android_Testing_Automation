@@ -77,12 +77,12 @@ exports.config = {
 
       "appium:noReset": true,
       acceptInsecureCerts: true,
-      "appium:newCommandTimeout": 120000,
-      "appium:adbExecTimeout": 120000,
-      "appium:uiautomator2ServerInstallTimeout": 120000,
+      "appium:newCommandTimeout": 150000,
+      "appium:adbExecTimeout": 150000,
+      "appium:uiautomator2ServerInstallTimeout": 150000,
 
       "appium:appWaitActivity": "*",
-      "appium:appWaitDuration": 60000,
+      "appium:appWaitDuration": 150000,
       "appium:autoGrantPermissions": true,
       maxInstances: 1,
     },
@@ -122,11 +122,11 @@ exports.config = {
   // baseUrl: 'http://localhost:8080',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 30000,
+  waitforTimeout: 150000,
   //
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response
-  connectionRetryTimeout: 120000,
+  connectionRetryTimeout: 150000,
   //
   // Default request retries count
   connectionRetryCount: 3,

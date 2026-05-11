@@ -1,9 +1,10 @@
 const { expect } = require("@wdio/globals");
 const Actions = require("../utils/actions");
 const LoginPage = require("../pageobjects/login.page");
+const manualCasePage = require("../pageobjects/manualCase.page");
 
 describe("My Login application", () => {
-  it("should login with valid credentials", async () => {
+  it("Verify user with valid ID is able to successfully sign in to the app", async () => {
     await LoginPage.fillEmail();
     await LoginPage.clickLoginEmail();
     await Actions.handleIntermediatePage();
@@ -29,9 +30,10 @@ describe("My Login application", () => {
       await LoginPage.clickLogin2Email();
     }
 
-    const el = await LoginPage.getCasesText();
+    let el = await LoginPage.getCasesText();
     Actions.wait(50000);
 
     expect(el).toBe("Cases");
+    
   });
 });

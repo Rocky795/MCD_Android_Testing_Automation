@@ -46,6 +46,7 @@ describe("Create Manual Case", () => {
 
   it("User should be able to fill the manual case form", async () => {
     await manualCasePage.clickCreateCaseManualIssueDropdown();
+    await manualCasePage.clickCreateCaseManualIssueDropdown();
     Actions.wait(2000);
     await manualCasePage.clickCreateCaseManualIssueFrontCounter();
     await manualCasePage.fillCreateCaseManualShortDescription();
