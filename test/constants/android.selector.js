@@ -16,6 +16,8 @@ export const androidPaths = {
     'android=new UiSelector().className("android.widget.ImageView").instance(0)',
   home_user_profil_name: 'android=new UiSelector().text("Pratham Bharti")',
   sign_out_btn: 'android=new UiSelector().text("Sign out")',
+  confirm_sign_out_btn:
+    'android=new UiSelector().resourceId("android:id/button1")',
   home_newcase_dropdown:
     // 'android=new UiSelector().className("android.view.ViewGroup").instance(55)',
     // '//android.widget.TextView[normalize-space(@text)="New Case"]/ancestor::android.view.ViewGroup[1]//*[@clickable="true"]',

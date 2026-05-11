@@ -10,7 +10,11 @@ class SignOutPage {
             await dropdown.click();
     }
 
-    
+    async clickConfirmSignOutButton() {
+        const confirmBtn = await SignOutSelectors.confirmSignOutBtn;
+            await confirmBtn.waitForDisplayed({ timeout: 5000 });
+            await confirmBtn.click();
+    }
 
 }
 
