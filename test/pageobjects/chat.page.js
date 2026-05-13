@@ -8,7 +8,7 @@ class ChatPage {
   
  
 
-  async getChatMessage(text) {
+  async getDynamicText(text) {
     
     let selectorString = androidPaths.chat_dynamic_message;
     selectorString = selectorString.replace("{MSG_TEXT}", text);
@@ -16,8 +16,14 @@ class ChatPage {
     return await $(selectorString);
   }
 
-  async getChatMessageIsDisplayed(text) {
-    const messageEl = await this.getChatMessage(text);
+  async clickDynamicText(text){
+    const messageEl = await this.getDynamicText(text);
+    await messageEl.waitForDisplayed({ timeout: 50000 });
+    await messageEl.click();
+  }
+
+  async getDynamicTextIsDisplayed(text) {
+    const messageEl = await this.getDynamicText(text);
     await messageEl.waitForDisplayed({ timeout: 50000 });
     return await messageEl.isDisplayed();
   }

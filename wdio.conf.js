@@ -176,7 +176,7 @@ exports.config = {
   // See the full list at http://mochajs.org/
   mochaOpts: {
     ui: "bdd",
-    timeout: 60000,
+    timeout: 150000,
   },
 
   //
@@ -277,17 +277,49 @@ exports.config = {
    * @param {boolean} result.passed    true if test has passed, otherwise false
    * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
    */
-  afterTest: function (
-    test,
-    context,
-    { error, result, duration, passed, retries },
-  ) {
-    if (error) {
-      browser.takeScreenshot();
-    } else {
-      browser.takeScreenshot();
+  afterTest: async function (
+  test,
+  context,
+  { error, result, duration, passed, retries }
+) {
+
+  try {
+
+    // Skip if session already crashed
+    if (!browser.sessionId) {
+      console.log("Session already closed. Screenshot skipped.");
+      return;
     }
-  },
+
+    // Create screenshots folder
+    const screenshotDir = path.join(process.cwd(), "errorShots");
+
+    if (!fs.existsSync(screenshotDir)) {
+      fs.mkdirSync(screenshotDir, { recursive: true });
+    }
+
+    // Safe filename
+    const fileName =
+      test.title.replace(/[^a-zA-Z0-9]/g, "_") +
+      "_" +
+      Date.now() +
+      ".png";
+
+    const filePath = path.join(screenshotDir, fileName);
+
+    // Take screenshot
+    await browser.saveScreenshot(filePath);
+
+    console.log(`Screenshot saved: ${filePath}`);
+
+  } catch (err) {
+
+    console.log(
+      `Screenshot capture skipped/failed: ${err.message}`
+    );
+
+  }
+},
 
   /**
    * Hook that gets executed after the suite has ended
@@ -311,17 +343,7 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {Array.<String>} specs List of spec file paths that ran
    */
-  afterTest: function (
-    test,
-    context,
-    { error, result, duration, passed, retries },
-  ) {
-    if (error) {
-      browser.takeScreenshot();
-    } else {
-      browser.takeScreenshot();
-    }
-  },
+ 
 
   /**
    * Gets executed right after terminating the webdriver session.

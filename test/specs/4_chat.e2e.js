@@ -19,20 +19,20 @@ describe("Chat Support Automation", () => {
   });
 
   it("Validate Chat Support Messages", async () => {
-    const greetingEl = await ChatPage.getChatMessage(
+    const greetingEl = await ChatPage.getDynamicText(
       ChatData.messages.greeting,
     );
     await greetingEl.waitForDisplayed({ timeout: 100000 });
     await expect(greetingEl).toBeDisplayed();
     console.log("Validation for message is done");
-    const storeNumberIssueEl = await ChatPage.getChatMessage(
+    const storeNumberIssueEl = await ChatPage.getDynamicText(
       ChatData.messages.storeNumberIssue,
     );
     await storeNumberIssueEl.waitForDisplayed({ timeout: 50000 });
     await expect(storeNumberIssueEl).toBeDisplayed();
     console.log("Validation for message is done");
 
-    const storeConfirmationEl = await ChatPage.getChatMessage(
+    const storeConfirmationEl = await ChatPage.getDynamicText(
       ChatData.messages.storeConfirmation,
     );
     await storeConfirmationEl.waitForDisplayed({ timeout: 50000 });
@@ -44,7 +44,7 @@ describe("Chat Support Automation", () => {
     await Actions.wait(2000);
     await chatPage.clickChatBillingIssue();
     await Actions.wait(2000);
-    const supportDeskClosedEl = await ChatPage.getChatMessage(
+    const supportDeskClosedEl = await ChatPage.getDynamicText(
       ChatData.messages.supportDeskClosed,
     );
     if (await supportDeskClosedEl.isDisplayed()) {

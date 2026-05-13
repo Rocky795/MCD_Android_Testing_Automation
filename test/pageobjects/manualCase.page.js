@@ -6,7 +6,6 @@ const { androidPaths } = require("../constants/android.selector");
 require("dotenv").config();
 
 class manualCasePage {
-
   async getDynamicTextSelector(text) {
     let selectorString = androidPaths.dynacmic_description_selector;
     selectorString = selectorString.replace("{DESCRIPTION_TEXT}", text);
@@ -18,7 +17,6 @@ class manualCasePage {
     });
     return el;
   }
-
 
   async clickCreateCaseManualButton() {
     const btn = ManualCaseSelectors.createCaseManualButton;
@@ -39,7 +37,8 @@ class manualCasePage {
     await btn.click();
   }
   async clickCreateCaseManualIssueFrontCounter() {
-    const btn = ManualCaseSelectors.createCaseManualIssueAreaDropdownFrontCounter;
+    const btn =
+      ManualCaseSelectors.createCaseManualIssueAreaDropdownFrontCounter;
     await btn.waitForDisplayed({
       timeout: 20000,
       timeoutMsg: "Manual case issue area dropdown front counter not displayed",
@@ -57,10 +56,10 @@ class manualCasePage {
   }
 
   async CreateCaseManualIssueAreaDropdownFrontCounterIsDisplayed() {
-    const btn = ManualCaseSelectors.createCaseManualIssueAreaDropdownFrontCounter;
+    const btn =
+      ManualCaseSelectors.createCaseManualIssueAreaDropdownFrontCounter;
     return await btn.isDisplayed();
   }
-
 
   async fillCreateCaseManualShortDescription() {
     const input = ManualCaseSelectors.createCaseManualShortDescriptionInput;
@@ -111,6 +110,19 @@ class manualCasePage {
     return await btn.isDisplayed();
   }
 
+  async clickManualSubmitOkButton() {
+    const btn = ManualCaseSelectors.manualSubmitOkButton;
+    await btn.waitForDisplayed({
+      timeout: 10000,
+      timeoutMsg: "Manual case submit OK button not displayed",
+    });
+    await btn.click();
+  }
+
+  async isManualCaseSuccessMessageDisplayed() {
+    const messageEl = ManualCaseSelectors.manualCaseSuccessMessage;
+    return await messageEl.isDisplayed();
+  }
 }
 
 module.exports = new manualCasePage();

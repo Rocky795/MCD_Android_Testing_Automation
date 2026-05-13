@@ -48,6 +48,17 @@ class ManualCaseSelectors {
       ? $(androidPaths.unexpected_error_button)
       : $(iosPaths.unexpected_error_button);
   }
-  
+
+  get manualSubmitOkButton() {
+    return driver.isAndroid
+      ? $(androidPaths.manual_submit_Ok_button)
+      : $(iosPaths.manual_submit_Ok_button);
+  }
+
+  get manualCaseSuccessMessage() {
+    return driver.isAndroid
+      ? $(androidPaths.manual_case_success_message)
+      : $(iosPaths.manual_case_success_message);
+  }
 }
 module.exports = new ManualCaseSelectors();

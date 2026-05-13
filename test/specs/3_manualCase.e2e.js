@@ -4,6 +4,7 @@ const profilePage = require("../pageobjects/profile.page");
 const loginPage = require("../pageobjects/login.page");
 const manualCasePage = require("../pageobjects/manualCase.page");
 const manualCaseDataData = require("../data/manualCaseData.data");
+const chatPage = require("../pageobjects/chat.page");
 
 describe("Create Manual Case", () => {
   it("User should be able to click on home case dropdown", async () => {
@@ -54,14 +55,12 @@ describe("Create Manual Case", () => {
     // await manualCasePage.fillCreateCaseManualPhoneNumber();
     await manualCasePage.clickManualSubmitButton();
     await Actions.wait(5000);
-    const isDisplayed = await manualCasePage.isUnexpectedErrorButtonDisplayed();
 
-    if (isDisplayed) {
-      console.log(
-        "This Testcase is failed and Error is coming, since framework is in development we're bypassing it",
-      );
-      await manualCasePage.clickUnexpectedErrorButton();
+    await manualCasePage.isManualCaseSuccessMessageDisplayed();
+    await manualCasePage.clickManualSubmitOkButton();
+    while (!(await loginPage.isCasesTextDisplayed())) {
+      await driver.back();
+      await driver.pause(1000);
     }
-    await driver.back();
   });
 });

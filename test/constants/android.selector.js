@@ -40,6 +40,8 @@ export const androidPaths = {
   manual_submit_button: 'android=new UiSelector().description("Submit case")',
   unexpected_error_button:
     'android=new UiSelector().resourceId("android:id/button1")',
+  manual_submit_Ok_button: 'android=new UiSelector().resourceId("android:id/button1")',
+  manual_case_success_message:'android=new UiSelector().resourceId("android:id/message")',
   dynacmic_description_selector:
     'android=new UiSelector().textContains("{DESCRIPTION_TEXT}")',
 
