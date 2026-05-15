@@ -122,7 +122,7 @@ exports.config = {
   // baseUrl: 'http://localhost:8080',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 150000,
+  waitforTimeout: 90000,
   //
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response
@@ -163,10 +163,10 @@ exports.config = {
     [
       "allure",
       {
-        outputDir: baseResultsDir, // Write to root directory (will be copied to timestamped folder on completion)
+        outputDir: baseResultsDir, 
         disableWebdriverStepsReporting: false,
         disableWebdriverScreenshotsReporting: false,
-        // Report these environment variables into Allure instead of using addEnvironment
+        
         reportedEnvironmentVars: ["PLATFORM", "DEVICE", "ENVIRONMENT"],
       },
     ],
@@ -232,7 +232,7 @@ exports.config = {
    * @param {object}         browser      instance of created browser/device session
    */
   before: function (capabilities, specs) {
-    // Allure environment variables are provided via `reportedEnvironmentVars`
+   
     console.log(
       `Test environment: ${process.env.ENVIRONMENT} / ${process.env.PLATFORM} / ${process.env.DEVICE}`,
     );
@@ -285,14 +285,14 @@ exports.config = {
 
   try {
 
-    // Skip if session already crashed
+   
     if (!browser.sessionId) {
       console.log("Session already closed. Screenshot skipped.");
       return;
     }
 
-    // Create screenshots folder
-    const screenshotDir = path.join(process.cwd(), "errorShots");
+    
+    const screenshotDir = path.join(process.cwd(), "ScreenShots");
 
     if (!fs.existsSync(screenshotDir)) {
       fs.mkdirSync(screenshotDir, { recursive: true });
@@ -363,10 +363,10 @@ exports.config = {
    */
   onComplete: function () {
     try {
-      // Create timestamped results directory
+      
       fs.mkdirSync(currentResultsDir, { recursive: true });
 
-      // Copy all result files from root allure-results to timestamped folder
+      
       const allResultFiles = fs.readdirSync(baseResultsDir).filter((f) => {
         const fullPath = path.join(baseResultsDir, f);
         return (
@@ -409,7 +409,7 @@ exports.config = {
       );
 
       console.log(`\n${"=".repeat(60)}`);
-      console.log(`✓ Allure report successfully generated!`);
+      console.log(`Allure report successfully generated!`);
       console.log(`\nReport Location: ${currentReportDir}`);
       console.log(`\nTo view the report, run:`);
       console.log(`  npm run report:open`);
@@ -427,7 +427,7 @@ exports.config = {
       // console.log(`Cleaned root ${baseResultsDir} folder for next run`);
     } catch (error) {
       console.error(`\n${"=".repeat(60)}`);
-      console.error(`✗ Failed to generate Allure report!`);
+      console.error(`Failed to generate Allure report!`);
       console.error(`Error: ${error.message}`);
       console.error(`Results directory: ${currentResultsDir}`);
       console.error(`Report directory: ${currentReportDir}`);

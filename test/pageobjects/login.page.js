@@ -35,9 +35,13 @@ class LoginPage {
     await LoginSelectors.loginResManagerBtn.click();
   }
 
-  async isResManagerUsernameVisible() {
+  async isResManagerUsernameVisible(timeout = 8000) {
     try {
-      return await LoginSelectors.loginResManagerUsername.isDisplayed();
+      await LoginSelectors.loginResManagerUsername.waitForDisplayed({
+        timeout,
+      });
+
+      return true;
     } catch (error) {
       return false;
     }

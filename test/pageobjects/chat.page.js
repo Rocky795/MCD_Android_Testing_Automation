@@ -12,7 +12,7 @@ class ChatPage {
     
     let selectorString = androidPaths.chat_dynamic_message;
     selectorString = selectorString.replace("{MSG_TEXT}", text);
-    console.log(`This message is getting validated: ${selectorString}`);
+    console.log(`This message is getting validated: ${text}`);
     return await $(selectorString);
   }
 
