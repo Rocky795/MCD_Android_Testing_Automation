@@ -8,10 +8,12 @@ describe("Open Cases and Verify", () => {
   it("Verify User can Logout from MCD APP", async () => {
    
 
-    // while (!(await LoginPage.isCasesTextDisplayed())) {
-    //   await driver.back();
-    //   await driver.pause(1000);
-    // }
+    while (!(await LoginPage.isCasesTextDisplayed())) {
+      await driver.back();
+      await driver.pause(1000);
+    }
+
+    
     
     
   });
