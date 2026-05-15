@@ -50,6 +50,22 @@ class Actions {
   async wait(ms) {
     await driver.pause(ms);
   }
+
+  async validateKBResponse(text) {
+  // 1. intent
+  expect(text).toContain("LIFELENZ");
+  expect(text).toContain("Kiosk Mode");
+  expect(text).toContain("MFA");
+
+  // 2. structure
+  expect(/\d\./.test(text)).toBe(true);
+
+  // 3. images or links exist
+  expect(text.includes("Image") || text.includes("http")).toBe(true);
+
+  // 4. KB references
+  expect(text).toMatch(/KB\d{6}/);
+}
 }
 
 module.exports = new Actions();

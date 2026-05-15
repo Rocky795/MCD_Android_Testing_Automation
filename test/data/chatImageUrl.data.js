@@ -8,6 +8,11 @@ module.exports= {
         Image_4:"(https://steparag73qkgzz2fvpvs.blob.core.windows.net/kb-mcdretail/images/f8db03d7-22f5-4f02-b994-4afeca66fe46.png",
         Image_5:"(https://steparag73qkgzz2fvpvs.blob.core.windows.net/kb-mcdretail/images/c5fa7754-4ac8-4666-930b-5a605e3e234a.png"
     },
+    kb_unlock_account_response: {
+    Image_1:"https://steparag73qkgzz2fvpvs.blob.core.windows.net/kb-mcdretail/images/03d2a3d6-aa6e-47de-af49-00771b07d3af.png",
+    Image_2:"https://steparag73qkgzz2fvpvs.blob.core.windows.net/kb-mcdretail/images/246a04f7-bc73-4567-9b46-6368897e1722.png",
+    Image_3:"https://steparag73qkgzz2fvpvs.blob.core.windows.net/kb-mcdretail/images/e8b2f00d-e3ae-4f59-8332-120a7ec495ae.png",
+    },
     accountUnloackResponseImageNote:{
         Image: "https://steparag73qkgzz2fvpvs.blob.core.windows.net/kb-mcdretail/images/f8db03d7-22f5-4f02-b994-4afeca66fe46.png?st=2026-05-15T11%3A27%3A31Z&se=2026-05-15T12%3A27%3A31Z&sp=r&sv=2026-02-06&sr=b&skoid=5c348d69-ac94-4661-91a1-d6821b5e3a7e&sktid=68c7ca5f-222b-43ad-b53b-b0d695c31d00&skt=2026-05-15T11%3A27%3A31Z&ske=2026-05-15T12%3A27%3A31Z&sks=b&skv=2026-02-06&sig=rlfQKO3C4PAOt7%2BbyKakcy/I0qSjb86DV%2BygwYMc5qc%3D",
 

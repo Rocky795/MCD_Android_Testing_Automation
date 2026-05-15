@@ -94,7 +94,7 @@ async function checkKBChatFlow(
   await chatPage.clickChatSupportSendButton();
 
   let messageResponse = await chatPage.getDynamicText(
-    ChatData.kb_querys_response.accountUnloackResponse,
+    ChatData.kb_querys_response.kb_unlock_account_response,
   );
   await messageResponse.waitForDisplayed({ timeout: 100000 });
   await expect(messageResponse).toBeDisplayed();

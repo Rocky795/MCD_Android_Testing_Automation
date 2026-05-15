@@ -23,7 +23,7 @@ module.exports = {
       "What are the requirements for creating a new password?",
   },
   kb_querys_response: {
-    accountUnloackResponse: `
+    accountUnlockResponse: `
         To lock your account using a personal device,
         one common method is to use biometric or PIN
         authentication through an app like LifeLenz.
@@ -99,7 +99,64 @@ module.exports = {
         Cycling App Lock and
         iPhone PIN settings for MFA:
 `.trim(),
-    accountUnloackResponseImageNote:
+kb_unlock_account_response: `
+To unlock your account using a personal device,
+you can use the LIFELENZ application in Kiosk Mode
+if you don't have a mobile phone. Here is the procedure:
+
+1. Download and install the LIFELENZ Mobile Application
+   onto a tablet (or personal device).
+
+2. A Manager logs in to the app
+   (note: it will not save or default to this user's profile).
+
+3. Go to Settings and tap on Kiosk Mode.
+
+4. Toggle the Kiosk button to the right to enable it.
+
+Once Kiosk Mode is enabled, the device's features
+such as calendar synchronization, push notifications,
+and shift reminders are disabled to ensure data security.
+
+Users will be logged out automatically when the LIFELENZ
+application is put into the background or switched to
+a different application, so no personal information
+is stored on the shared device.
+
+The Manager can then log out, and employees can log in
+as needed to access their personal LIFELENZ accounts.
+
+
+If you are referring to unlocking your account with
+Multi-Factor Authentication (MFA) on a personal device,
+you may need to switch to Smartphone MFA by:
+
+1. Logging into Global Account Manager and managing
+   your MFA settings.
+
+2. Selecting "I want to Switch to Smartphone MFA"
+   and following the on-screen steps.
+
+3. Storing your recovery code and setting up a
+   recovery email (personal email).
+
+4. Confirming the recovery email by clicking the
+   verification link sent to your email.
+
+5. Using the Microsoft Authenticator App to scan
+   the QR code and enter the 6-digit code.
+
+This process will enable you to use your personal
+smartphone for MFA authentication to unlock your account securely.
+
+Image
+Image
+Image
+
+If you need detailed steps for either method or
+have a specific device or system in mind, please let me know!
+  `.trim(),
+    accountUnlockResponseImageNote:
       `Image (Note: This image is reused for illustration purposes)
       If you want to lock your account specifically
         using biometric or PIN on a personal device,

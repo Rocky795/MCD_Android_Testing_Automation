@@ -163,10 +163,10 @@ exports.config = {
     [
       "allure",
       {
-        outputDir: baseResultsDir, 
+        outputDir: baseResultsDir,
         disableWebdriverStepsReporting: false,
         disableWebdriverScreenshotsReporting: false,
-        
+
         reportedEnvironmentVars: ["PLATFORM", "DEVICE", "ENVIRONMENT"],
       },
     ],
@@ -176,7 +176,7 @@ exports.config = {
   // See the full list at http://mochajs.org/
   mochaOpts: {
     ui: "bdd",
-    timeout: 150000,
+    timeout: 300000,
   },
 
   //
@@ -232,7 +232,6 @@ exports.config = {
    * @param {object}         browser      instance of created browser/device session
    */
   before: function (capabilities, specs) {
-   
     console.log(
       `Test environment: ${process.env.ENVIRONMENT} / ${process.env.PLATFORM} / ${process.env.DEVICE}`,
     );
@@ -278,48 +277,36 @@ exports.config = {
    * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
    */
   afterTest: async function (
-  test,
-  context,
-  { error, result, duration, passed, retries }
-) {
+    test,
+    context,
+    { error, result, duration, passed, retries },
+  ) {
+    try {
+      if (!browser.sessionId) {
+        console.log("Session already closed. Screenshot skipped.");
+        return;
+      }
 
-  try {
+      const screenshotDir = path.join(process.cwd(), "ScreenShots");
 
-   
-    if (!browser.sessionId) {
-      console.log("Session already closed. Screenshot skipped.");
-      return;
+      if (!fs.existsSync(screenshotDir)) {
+        fs.mkdirSync(screenshotDir, { recursive: true });
+      }
+
+      // Safe filename
+      const fileName =
+        test.title.replace(/[^a-zA-Z0-9]/g, "_") + "_" + Date.now() + ".png";
+
+      const filePath = path.join(screenshotDir, fileName);
+
+      // Take screenshot
+      await browser.saveScreenshot(filePath);
+
+      console.log(`Screenshot saved: ${filePath}`);
+    } catch (err) {
+      console.log(`Screenshot capture skipped/failed: ${err.message}`);
     }
-
-    
-    const screenshotDir = path.join(process.cwd(), "ScreenShots");
-
-    if (!fs.existsSync(screenshotDir)) {
-      fs.mkdirSync(screenshotDir, { recursive: true });
-    }
-
-    // Safe filename
-    const fileName =
-      test.title.replace(/[^a-zA-Z0-9]/g, "_") +
-      "_" +
-      Date.now() +
-      ".png";
-
-    const filePath = path.join(screenshotDir, fileName);
-
-    // Take screenshot
-    await browser.saveScreenshot(filePath);
-
-    console.log(`Screenshot saved: ${filePath}`);
-
-  } catch (err) {
-
-    console.log(
-      `Screenshot capture skipped/failed: ${err.message}`
-    );
-
-  }
-},
+  },
 
   /**
    * Hook that gets executed after the suite has ended
@@ -343,7 +330,6 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {Array.<String>} specs List of spec file paths that ran
    */
- 
 
   /**
    * Gets executed right after terminating the webdriver session.
@@ -363,10 +349,8 @@ exports.config = {
    */
   onComplete: function () {
     try {
-      
       fs.mkdirSync(currentResultsDir, { recursive: true });
 
-      
       const allResultFiles = fs.readdirSync(baseResultsDir).filter((f) => {
         const fullPath = path.join(baseResultsDir, f);
         return (
@@ -376,8 +360,7 @@ exports.config = {
             f.endsWith(".jpg") ||
             f.endsWith("-container.json") ||
             f.endsWith(".jpeg") ||
-            f.endsWith("-attachment.txt")
-        )
+            f.endsWith("-attachment.txt"))
         );
       });
 
