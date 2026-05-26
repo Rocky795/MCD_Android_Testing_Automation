@@ -1,11 +1,11 @@
 // file: test/data/chat.data.js
 module.exports = {
-    general_option:{
-        storeNumber: `Store ${process.env.STORE}`,
-        somethingElse: "Something else",
-        udp_start_message:`How can I help you, ${process.env.PROFILE_FIRST_NAME}?`,
-        not_impacted: "Not impacted",
-    },
+  general_option: {
+    storeNumber: `Store ${process.env.STORE}`,
+    somethingElse: "Something else",
+    udp_start_message: `How can I help you, ${process.env.PROFILE_FIRST_NAME}?`,
+    not_impacted: "Not impacted",
+  },
   messages: {
     greeting: "Hello Pratham. Thank you for contacting the McDonald",
     storeNumberIssue:
@@ -18,9 +18,21 @@ module.exports = {
       "The Contract’s Support Desk is currently closed. Please contact us back during the next working day, between 7am and 7pm Central time, Monday through Friday. Thank you.",
   },
   kb_querys: {
-    accountUnlockQuery: "How can I unlock my account using a personal device?",
-    passowrdRequirement:
-      "What are the requirements for creating a new password?",
+    accountUnlockQuery: {
+      question: "How can I unlock my account using a personal device?",
+      config: {
+        requiredKeywords: [
+          "LIFELENZ",
+          "Kiosk Mode",
+          "Manager",
+          "MFA",
+          "Authenticator",
+        ],
+        expectedReferences: ["KB0014741", "KB0015011", "KB0020448"],
+        minLength: 300,
+        requiredSections: ["Intro", "Steps", "References"],
+      },
+    },
   },
   kb_querys_response: {
     accountUnlockResponse: `
@@ -99,7 +111,7 @@ module.exports = {
         Cycling App Lock and
         iPhone PIN settings for MFA:
 `.trim(),
-kb_unlock_account_response: `
+    kb_unlock_account_response: `
 To unlock your account using a personal device,
 you can use the LIFELENZ application in Kiosk Mode
 if you don't have a mobile phone. Here is the procedure:

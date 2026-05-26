@@ -1,21 +1,22 @@
+const ChatbotAssertions = require("./chatbot_assertion");
+
 class Actions {
   async tap(el, customTimeout = 30000) {
     await el.waitForDisplayed({ timeout: customTimeout });
-    await el.waitForEnabled({ timeout: customTimeout }); 
-    
-    await driver.pause(1500); 
-    
+    await el.waitForEnabled({ timeout: customTimeout });
+
+    await driver.pause(1500);
+
     await el.click();
   }
 
   async type(el, text, customTimeout = 30000) {
     await el.waitForDisplayed({ timeout: customTimeout });
-    
-    await el.waitForEnabled({ timeout: customTimeout }); 
-    
-  
-    await el.clearValue(); 
-    await el.addValue(text); 
+
+    await el.waitForEnabled({ timeout: customTimeout });
+
+    await el.clearValue();
+    await el.addValue(text);
 
     if (await driver.isKeyboardShown()) {
       await driver.hideKeyboard();
@@ -40,10 +41,16 @@ class Actions {
     console.log("Waiting for intermediate page to appear...");
     try {
       await this.intermediatePageElement.waitForDisplayed({ timeout: timeout });
-      console.log("SUCCESS: Intermediate page detected! Clicking to dismiss...");
-      await Action.tap(this.intermediatePageButton); 
+      console.log(
+        "SUCCESS: Intermediate page detected! Clicking to dismiss...",
+      );
+      await Action.tap(this.intermediatePageButton);
     } catch (error) {
-      console.log("SKIPPED: No intermediate page detected after " + (timeout/1000) + " seconds.");
+      console.log(
+        "SKIPPED: No intermediate page detected after " +
+          timeout / 1000 +
+          " seconds.",
+      );
     }
   }
 
@@ -51,21 +58,13 @@ class Actions {
     await driver.pause(ms);
   }
 
-  async validateKBResponse(text) {
-  // 1. intent
-  expect(text).toContain("LIFELENZ");
-  expect(text).toContain("Kiosk Mode");
-  expect(text).toContain("MFA");
+  async validateDynamicAIResponse(text, config = {}) {
+    ChatbotAssertions.assertDynamicUDPResponse(text, config);
+  }
 
-  // 2. structure
-  expect(/\d\./.test(text)).toBe(true);
-
-  // 3. images or links exist
-  expect(text.includes("Image") || text.includes("http")).toBe(true);
-
-  // 4. KB references
-  expect(text).toMatch(/KB\d{6}/);
-}
+  async validateKBResponse(text, config = {}) {
+    return this.validateDynamicAIResponse(text, config);
+  }
 }
 
 module.exports = new Actions();

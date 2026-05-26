@@ -56,9 +56,15 @@ async function BillingIssueChatFlow() {
 
 async function checkKBChatFlow(
   query = "What are the requirements for creating a new password?",
+  config = {},
 ) {
+  const effectiveConfig = Object.keys(config).length
+    ? config
+    : ChatData.kb_querys.accountUnlockQuery.config;
+
   await chatPage.clickChatSupportClearChatButton();
   await Actions.wait(2000);
+
   await chatPage.clickChatSupportClearChatButton();
   await Actions.wait(2000);
   await chatPage.clickStartNewChatButton();
@@ -80,8 +86,7 @@ async function checkKBChatFlow(
   await chatPage.clickDynamicText(ChatData.general_option.somethingElse);
   await Actions.wait(2000);
 
-    await chatPage.clickDynamicText(ChatData.general_option.not_impacted);
-
+  await chatPage.clickDynamicText(ChatData.general_option.not_impacted);
 
   let message = await chatPage.getDynamicText(
     ChatData.general_option.udp_start_message,
@@ -93,11 +98,17 @@ async function checkKBChatFlow(
   await chatPage.enterChatSupportMessage(query);
   await chatPage.clickChatSupportSendButton();
 
-  let messageResponse = await chatPage.getDynamicText(
-    ChatData.kb_querys_response.kb_unlock_account_response,
-  );
+  const responseKeyword =
+    effectiveConfig.requiredKeywords?.[0] ||
+    ChatData.kb_querys.accountUnlockQuery.config.requiredKeywords[0];
+
+  let messageResponse = await chatPage.getDynamicText(responseKeyword);
   await messageResponse.waitForDisplayed({ timeout: 100000 });
   await expect(messageResponse).toBeDisplayed();
+
+  const responseText = await messageResponse.getText();
+  await Actions.validateKBResponse(responseText, effectiveConfig);
+
   console.log("Validation for message is done");
 }
 
