@@ -40,8 +40,10 @@ export const androidPaths = {
   manual_submit_button: 'android=new UiSelector().description("Submit case")',
   unexpected_error_button:
     'android=new UiSelector().resourceId("android:id/button1")',
-  manual_submit_Ok_button: 'android=new UiSelector().resourceId("android:id/button1")',
-  manual_case_success_message:'android=new UiSelector().resourceId("android:id/message")',
+  manual_submit_Ok_button:
+    'android=new UiSelector().resourceId("android:id/button1")',
+  manual_case_success_message:
+    'android=new UiSelector().resourceId("android:id/message")',
   dynacmic_description_selector:
     'android=new UiSelector().textContains("{DESCRIPTION_TEXT}")',
 
@@ -68,4 +70,6 @@ export const androidPaths = {
   chat_dynamic_message: 'android=new UiSelector().textContains("{MSG_TEXT}")',
 
   chat_billing_issue_selector: 'android=new UiSelector().text("Billing")',
+  dynamic_scroll_to_text:
+    'android=new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("{TEXT}"))',
 };

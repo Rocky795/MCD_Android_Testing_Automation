@@ -3,6 +3,7 @@ const Actions = require("../utils/actions");
 const profilePage = require("../pageobjects/profile.page");
 const signOutPage = require("../pageobjects/signout.page");
 const LoginPage = require("../pageobjects/login.page");
+const { openCases } = require("../flows/cases.flow");
 
 describe("Open Cases and Verify", () => {
   it("Verify User can Logout from MCD APP", async () => {
@@ -13,6 +14,8 @@ describe("Open Cases and Verify", () => {
       await driver.pause(1000);
     }
 
+
+    await openCases();
     
     
     
