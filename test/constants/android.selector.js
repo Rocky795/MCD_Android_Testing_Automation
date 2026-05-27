@@ -46,6 +46,7 @@ export const androidPaths = {
     'android=new UiSelector().resourceId("android:id/message")',
   dynacmic_description_selector:
     'android=new UiSelector().textContains("{DESCRIPTION_TEXT}")',
+  contact_support_button: 'android=new UiSelector().className("android.widget.ImageView").instance(3)',
 
   start_new_chat_button:
     'android=new UiSelector().resourceId("com.mcd.gsd.archassist:id/startNewButton")',
