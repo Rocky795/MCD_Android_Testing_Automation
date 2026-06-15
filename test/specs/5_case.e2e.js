@@ -11,7 +11,7 @@ describe("Open Cases and Verify", () => {
 
     while (!(await LoginPage.isCasesTextDisplayed())) {
       await driver.back();
-      await driver.pause(1000);
+      await driver.pause(2000);
     }
 
 

@@ -35,4 +35,7 @@ async function openCases() {
   await expect(textDynamic).toBeDisplayed();
 }
 
+
+// Add comments in cases
+
 module.exports = { openCases };

@@ -8,7 +8,7 @@ describe("Contact Support", () => {
   it("Verify User can view the contact page", async () => {
     while (!(await LoginPage.isCasesTextDisplayed())) {
       await driver.back();
-      await driver.pause(1000);
+      await driver.pause(2000);
     }
 
     await openContacts();

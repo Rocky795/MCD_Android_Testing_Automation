@@ -14,6 +14,7 @@ async function login() {
     await LoginPage.fillResManagerUsername();
     await LoginPage.fillResManagerPassword();
     await LoginPage.clickResManagerSignInBtn();
+    await Actions.wait(5000);
     if (await LoginPage.isResManagerUsernameVisible()) {
       console.log("Res Manager Username is visible again then login again");
       await Actions.wait(5000);

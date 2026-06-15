@@ -54,6 +54,58 @@ async function BillingIssueChatFlow() {
   }
 }
 
+
+
+async function AssociateCaseCreation() {
+  await chatPage.clickChatSupportClearChatButton();
+  await Actions.wait(2000);
+  await chatPage.clickChatSupportClearChatButton();
+  await Actions.wait(2000);
+  await chatPage.clickStartNewChatButton();
+  await chatPage.enterChatSupportMessage("This is a test message.");
+  await chatPage.clickChatSupportSendButton();
+  await Actions.wait(2000);
+  const greetingEl = await chatPage.getDynamicText(ChatData.messages.greeting);
+  await greetingEl.waitForDisplayed({ timeout: 100000 });
+  await expect(greetingEl).toBeDisplayed();
+  console.log("Validation for message is done");
+  const storeNumberIssueEl = await chatPage.getDynamicText(
+    ChatData.messages.storeNumberIssue,
+  );
+  await storeNumberIssueEl.waitForDisplayed({ timeout: 50000 });
+  await expect(storeNumberIssueEl).toBeDisplayed();
+  console.log("Validation for message is done");
+
+  const storeConfirmationEl = await chatPage.getDynamicText(
+    ChatData.messages.storeConfirmation,
+  );
+  await storeConfirmationEl.waitForDisplayed({ timeout: 50000 });
+  await expect(storeConfirmationEl).toBeDisplayed();
+  console.log("Validation for message is done");
+
+  await Actions.wait(2000);
+  await chatPage.clickChatConfirmStoreNumber();
+  await Actions.wait(2000);
+  await chatPage.clickDynamicText(ChatData.general_option.somethingElse);
+  await Actions.wait(2000);
+  await chatPage.clickDynamicText("Create Associated Case");
+  await Actions.wait(2000);
+
+
+
+
+  
+  const supportDeskClosedEl = await chatPage.getDynamicText(
+    ChatData.messages.associated_case_message,
+  );
+  await expect(storeConfirmationEl).toBeDisplayed();
+  console.log("Validation for message is done");
+  
+}
+
+
+
+
 async function checkKBChatFlow(
   query = "What are the requirements for creating a new password?",
   config = {},
@@ -117,4 +169,5 @@ module.exports = {
   openChatSupport,
   BillingIssueChatFlow,
   checkKBChatFlow,
+  AssociateCaseCreation,
 };

@@ -5,6 +5,7 @@ module.exports = {
     somethingElse: "Something else",
     udp_start_message: `How can I help you, ${process.env.PROFILE_FIRST_NAME}?`,
     not_impacted: "Not impacted",
+    associated_case_message:"has been created for this issue and associated with the Major incident ticket",
   },
   messages: {
     greeting: "Hello Pratham. Thank you for contacting the McDonald",

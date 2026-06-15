@@ -2,7 +2,7 @@ const Actions = require("../utils/actions");
 const { expect } = require("@wdio/globals");
 const chatPage = require("../pageobjects/chat.page");
 const ChatData = require("../data/chat.data");
-const { openChatSupport, BillingIssueChatFlow, checkKBChatFlow } = require("../flows/chat.flow");
+const { openChatSupport, BillingIssueChatFlow, checkKBChatFlow, AssociateCaseCreation } = require("../flows/chat.flow");
 const chatData = require("../data/chat.data");
 
 describe("Chat Support Automation", () => {
@@ -12,6 +12,11 @@ describe("Chat Support Automation", () => {
 
   it("Validate Chat Support Messages", async () => {
     await BillingIssueChatFlow();
+  });
+
+  it("Verify associated case creation from chat", async () => {
+    
+    await AssociateCaseCreation();
   });
 
 
