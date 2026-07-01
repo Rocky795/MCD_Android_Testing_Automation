@@ -30,25 +30,35 @@ class Actions {
     );
   }
 
-  async tap(el, customTimeout = 30000) {
-    await el.waitForDisplayed({ timeout: customTimeout });
-    await el.waitForEnabled({ timeout: customTimeout });
+  async tap(element, customTimeout = 30000) {
+    await element.waitForDisplayed({ timeout: 10000 });
 
-    await driver.pause(1500);
+    if (browser.isMobile) {
+      // If you need specific mobile Appium gestures, they go here
+      await element.click();
+    } else {
+      await element.waitForEnabled({ timeout: customTimeout });
 
-    await el.click();
+      await driver.pause(1500);
+
+      await element.click();
+    }
   }
 
   async type(el, text, customTimeout = 30000) {
+    // 1. Wait for element to be ready (Works for both Web and Mobile)
     await el.waitForDisplayed({ timeout: customTimeout });
-
     await el.waitForEnabled({ timeout: customTimeout });
 
+    // 2. Clear existing text and input the new text
     await el.clearValue();
     await el.addValue(text);
 
-    if (await driver.isKeyboardShown()) {
-      await driver.hideKeyboard();
+    // 3. Handle Keyboard (Isolate to Mobile ONLY)
+    if (browser.isMobile) {
+      if (await driver.isKeyboardShown()) {
+        await driver.hideKeyboard();
+      }
     }
   }
 
@@ -90,6 +100,26 @@ class Actions {
           timeout / 1000 +
           " seconds.",
       );
+    }
+  }
+
+  async pressEnter() {
+    if (!browser.isMobile) {
+      // Desktop Web Chrome Enter Event
+      await browser.keys('Enter');
+    } else {
+      const platform = browser.capabilities.platformName.toLowerCase();
+      try {
+        if (platform === 'android') {
+          // Native Android Enter Key (KEYCODE_ENTER = 66)
+          await driver.pressKeyCode(66);
+        } else if (platform === 'ios') {
+          // iOS virtual keyboard Return key
+          await browser.keys('Enter');
+        }
+      } catch (error) {
+        console.log(`Failed to press Enter on ${platform}: ${error.message}`);
+      }
     }
   }
 

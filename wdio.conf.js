@@ -17,6 +17,37 @@ process.env.PLATFORM = process.env.PLATFORM || "Android";
 process.env.DEVICE = process.env.DEVICE || "Samsung SM-X115";
 process.env.ENVIRONMENT = process.env.ENVIRONMENT || "UAT";
 
+
+// 1. Detect if the command includes a path to the web specs
+const isWebRun = process.argv.some(arg => arg.includes('test/specs/web') || arg.includes('test\\specs\\web'));
+
+// 2. Dynamically set capabilities
+const activeCapabilities = isWebRun ? [{
+    browserName: "chrome",
+    acceptInsecureCerts: true,
+    maxInstances: 1
+}] : [{
+    platformName: "Android",
+    "appium:automationName": "UiAutomator2",
+    "appium:deviceName": "emulator-5554",
+    "appium:app": "C:\\Users\\BhartiPr\\Downloads\\app-uat-1.0.14-27-release-signed.apk",
+    "appium:noReset": true,
+    acceptInsecureCerts: true,
+    "appium:newCommandTimeout": 150000,
+    "appium:adbExecTimeout": 150000,
+    "appium:uiautomator2ServerInstallTimeout": 150000,
+    "appium:appWaitActivity": "*",
+    "appium:appWaitDuration": 150000,
+    "appium:autoGrantPermissions": true,
+    maxInstances: 1
+}];
+
+// 3. Dynamically set the port (Web doesn't need 4723)
+const activePort = isWebRun ? undefined : 4723;
+
+// 4. Dynamically set services (Web shouldn't use Appium)
+const activeServices = isWebRun ? ["visual"] : ["appium", "visual"];
+
 exports.config = {
   //
   // ====================
@@ -24,8 +55,7 @@ exports.config = {
   // ====================
   // WebdriverIO supports running e2e tests as well as unit and component tests.
   runner: "local",
-  port: 4723,
-  //
+port: activePort,  //
   // ==================
   // Specify Test Files
   // ==================
@@ -40,7 +70,7 @@ exports.config = {
   // The path of the spec files will be resolved relative from the directory of
   // of the config file unless it's absolute.
   //
-  specs: ["./test/specs/**/*.js"],
+  specs: [],
   // Patterns to exclude.
   exclude: ["./test/specs/runner.e2e.js"],
   //
@@ -65,28 +95,7 @@ exports.config = {
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
   // https://saucelabs.com/platform/platform-configurator
   //
-  capabilities: [
-    {
-      // capabilities for local Appium web tests on an Android Emulator
-      platformName: "Android",
-      "appium:automationName": "UiAutomator2",
-      "appium:deviceName": "emulator-5554",
-
-      "appium:app":
-        "C:\\Users\\BhartiPr\\Downloads\\app-uat-1.0.14-27-release-signed.apk",
-
-      "appium:noReset": true,
-      acceptInsecureCerts: true,
-      "appium:newCommandTimeout": 150000,
-      "appium:adbExecTimeout": 150000,
-      "appium:uiautomator2ServerInstallTimeout": 150000,
-
-      "appium:appWaitActivity": "*",
-      "appium:appWaitDuration": 150000,
-      "appium:autoGrantPermissions": true,
-      maxInstances: 1,
-    },
-  ],
+  capabilities: activeCapabilities,
 
   //
   // ===================
@@ -135,7 +144,7 @@ exports.config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: ["appium", "visual"],
+  services: activeServices,
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
