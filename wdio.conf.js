@@ -29,7 +29,10 @@ const activeCapabilities = isWebRun ? [{
 }] : [{
     platformName: "Android",
     "appium:automationName": "UiAutomator2",
-    "appium:deviceName": "emulator-5554",
+    // Target a specific device via APPIUM_UDID (set by run-tests.ps1 when you
+    // pick a phone/emulator). Falls back to emulator-5554 when not provided.
+    "appium:deviceName": process.env.APPIUM_UDID || "emulator-5554",
+    ...(process.env.APPIUM_UDID ? { "appium:udid": process.env.APPIUM_UDID } : {}),
     "appium:app": "C:\\Users\\BhartiPr\\Downloads\\app-uat-1.0.14-27-release-signed.apk",
     "appium:noReset": true,
     acceptInsecureCerts: true,

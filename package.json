@@ -8,6 +8,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "wdio": "wdio run ./wdio.conf.js",
+    "api": "mocha --config ./test/api/.mocharc.json",
+    "api:allure": "mocha --config ./test/api/.mocharc.json --reporter allure-mocha --reporter-options resultsDir=allure-results",
     "wdio:clean": "Remove-Item -Recurse -Force allure-results, allure-report -ErrorAction SilentlyContinue; Write-Host 'Cleaned allure-results and allure-report folders'",
     "report:open": "powershell -Command \"$latest = Get-ChildItem -Path './allure-report' -Directory | Sort-Object Name -Descending | Select-Object -First 1; if ($latest) { npx allure open $latest.FullName } else { Write-Host 'No reports found' }\""
   },
@@ -20,6 +22,7 @@
     "@wdio/mocha-framework": "^9.27.0",
     "@wdio/spec-reporter": "^9.27.0",
     "@wdio/visual-service": "^9.2.2",
+    "allure-mocha": "^3.10.2",
     "appium-uiautomator2-driver": "^7.1.2",
     "wdio-html-nice-reporter": "^8.1.7",
     "wdio-timeline-reporter": "^5.1.4",
@@ -28,9 +31,7 @@
   "dependencies": {
     "dotenv": "^17.4.2"
   },
-  
-"overrides": {
+  "overrides": {
     "axios": "1.15.2"
   }
-
 }
